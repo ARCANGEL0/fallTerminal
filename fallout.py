@@ -154,7 +154,7 @@ def makeSelection(scr):
 
         elif inchar == ord('\n') and selection == 1:
             playsound("audio/keyenter.wav")
-            journalctl = subprocess.check_output("journalctl", shell=True, universal_newlines=True)
+            
 
             print(journalctl)
             time.sleep(20)
