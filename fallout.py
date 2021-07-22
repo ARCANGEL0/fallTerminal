@@ -167,8 +167,14 @@ def makeSelection(scr):
 
 
         elif inchar == ord('\n') and selection == 1:
+<<<<<<< HEAD
             playsound(os.path.join(__location__,"audio/keyenter.wav"))
             
+=======
+            playsound("audio/keyenter.wav")
+            
+
+>>>>>>> 0b1a8456f73df4834bf9d7ee22695025aeb90289
             print(journalctl)
             time.sleep(20)
             beginOptions()
