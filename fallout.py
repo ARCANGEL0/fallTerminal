@@ -10,6 +10,13 @@ import signal
 from playsound import playsound
 from pygame import mixer
 import subprocess
+
+
+
+__location__ = os.path.realpath(os.path.join(os.getcwd(),os.path.dirname(__file__)))
+
+
+
 CENTERED_HEADERS = (
     'ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM',
     'COPYRIGHT 2075-2077 ROBCO INDUSTRIES',
@@ -72,44 +79,51 @@ def selectOptions(scr):
             selection += 1
 
         if inchar == ord('\n') and selection == 0:
-            playsound("audio/keyenter.wav")
+            playsound(os.path.join(__location__,"audio/keyenter.wav"))
             print("\n\n\nOpening sublime...")
             time.sleep(2)
             os.system('subl $HOME/.zshrc')
+            scr.erase() 
             beginOptions()
 
         elif inchar == ord('\n') and selection == 1:
-            playsound("audio/keyenter.wav")
+            playsound(os.path.join(__location__,"audio/keyenter.wav"))
             print("\n\n\nOpening sublime...")
             time.sleep(2)
             os.system('subl $HOME/.bashrc')
+            scr.erase() 
             beginOptions()
 
 
         elif inchar == ord('\n') and selection == 2:
-            playsound("audio/keyenter.wav")
+            playsound(os.path.join(__location__,"audio/keyenter.wav"))
             print("\n\nStarting fusuma...")
             time.sleep(2)
             os.system('fusuma -d')
+            scr.erase()
             beginOptions()
         elif inchar == ord('\n') and selection == 3:
-            playsound("audio/keyenter.wav")
+            playsound(os.path.join(__location__,"audio/keyenter.wav"))
             print("\n\nStarting apache2...")
             time.sleep(2)
             os.system('service apache2 start')
+            scr.erase() 
             beginOptions()
 
         elif inchar == ord('\n') and selection == 4:
-            playsound("audio/keyenter.wav")
+            playsound(os.path.join(__location__,"audio/keyenter.wav"))
             print("\n\nStarting mysql...")
             time.sleep(2)
             os.system('service mysql start')
+            scr.erase() 
             beginOptions()
 
 
         elif inchar == ord('\n') and selection == 5:
-            playsound("audio/keyenter.wav")
+            playsound(os.path.join(__location__,"audio/keyenter.wav"))
+            scr.erase() 
             beginSelection()
+
 
 def makeSelection(scr):
     """
@@ -146,16 +160,15 @@ def makeSelection(scr):
             selection += 1
 
         if inchar == ord('\n') and selection == 0:
-            playsound("audio/keyenter.wav")
+            playsound(os.path.join(__location__,"audio/keyenter.wav"))
             print("\n\n\nEntering tty terminal...")
             time.sleep(2)
             os.system('tmux')
 
 
         elif inchar == ord('\n') and selection == 1:
-            playsound("audio/keyenter.wav")
-            journalctl = subprocess.check_output("journalctl", shell=True, universal_newlines=True)
-
+            playsound(os.path.join(__location__,"audio/keyenter.wav"))
+            
             print(journalctl)
             time.sleep(20)
             beginOptions()
@@ -163,11 +176,11 @@ def makeSelection(scr):
             
 
         elif inchar == ord('\n') and selection == 2:
-            playsound("audio/keyenter.wav")
+            playsound(os.path.join(__location__,"audio/keyenter.wav"))
             beginOptions()
 
         elif inchar == ord('\n') and selection == 3:
-            playsound("audio/keyenter.wav")
+            playsound(os.path.join(__location__,"audio/keyenter.wav"))
             time.sleep(3)
             pid = os.getppid()
             os.kill(pid,9)
@@ -278,8 +291,7 @@ def getPasswords():
 
     groups = []
 
-    __location__ = os.path.realpath(os.path.join(os.getcwd(),
-                                                 os.path.dirname(__file__)))
+    
 
     with open(os.path.join(__location__, "pass")) as pwfile:
         for line in pwfile:
@@ -393,19 +405,19 @@ def userInput(scr, passwords):
         inputPad.addstr('>' + guess.upper() + '\n')
 
         if guess.upper() == pwd.upper():
-            playsound("audio/keyenter.wav")
+            playsound(os.path.join(__location__,"audio/keyenter.wav"))
 
             inputPad.addstr('>Exact match!\n')
             inputPad.addstr('>Please wait\n')
             inputPad.addstr('>while system\n')
             inputPad.addstr('>is accessed.\n')
             moveInput(scr, inputPad)
-            playsound("audio/correctpass.wav")
+            playsound(os.path.join(__location__,"audio/correctpass.wav"))
             curses.napms(LOGIN_PAUSE)
             return pwd
 
         else:
-            playsound("audio/keyenter.wav")
+            playsound(os.path.join(__location__,"audio/keyenter.wav"))
 
             pwdLen = len(pwd)
             matched = 0
@@ -419,7 +431,7 @@ def userInput(scr, passwords):
             inputPad.addstr('>Entry denied\n')
             inputPad.addstr('>' + str(matched) + '/' + str(pwdLen) +
                             ' correct.\n')
-            playsound("audio/wrongpass.wav")
+            playsound(os.path.join(__location__,"audio/wrongpass.wav"))
         attempts -= 1
         scr.move(SQUARE_Y, 0)
         scr.addstr(str(attempts))
@@ -680,7 +692,7 @@ DELETE = 127
 def slowWrite(window, text, pause = LETTER_PAUSE):
 
     mixer.init()
-    mixer.music.load("audio/beep.wav")
+    mixer.music.load(os.path.join(__location__,"audio/beep.wav"))
     mixer.music.play()
 
 
