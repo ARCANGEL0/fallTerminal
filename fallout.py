@@ -170,10 +170,14 @@ def makeSelection(scr):
             playsound(os.path.join(__location__,"audio/keyenter.wav"))
             
             
-
-            print(journalctl)
-            time.sleep(20)
-            beginOptions()
+            
+            print(os.system('journalctl'))
+            exit = scr.getch()
+            if exit == ord('\n'):
+                scr.erase()
+                beginSelection()
+            scr.erase()
+            beginSelection()
 
             
 
