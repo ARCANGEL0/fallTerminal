@@ -12,6 +12,13 @@ from pygame import mixer
 import subprocess
 
 
+def handler(signum, frame):
+    pass
+
+
+signal.signal(signal.SIGINT, handler)
+signal.signal(signal.SIGTSTP, handler)
+
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(),os.path.dirname(__file__)))
 
@@ -80,18 +87,36 @@ def selectOptions(scr):
 
         if inchar == ord('\n') and selection == 0:
             playsound(os.path.join(__location__,"audio/keyenter.wav"))
-            print("\n\n\nOpening sublime...")
+            print("\n\n\nOpening editor...")
             time.sleep(2)
-            os.system('subl $HOME/.zshrc')
             scr.erase() 
+            os.system('ne $HOME/.zshrc')
+            exit = scr.getch()
+
+            if exit == ord('\n'):
+                scr.erase()
+                beginOptions()
+            elif exit == ord('\x1A'):
+                scr.erase()
+                beginOptions()
+
             beginOptions()
 
         elif inchar == ord('\n') and selection == 1:
             playsound(os.path.join(__location__,"audio/keyenter.wav"))
-            print("\n\n\nOpening sublime...")
+            print("\n\n\nOpening editor...")
             time.sleep(2)
-            os.system('subl $HOME/.bashrc')
             scr.erase() 
+
+            os.system('ne $HOME/.bashrc')
+            exit = scr.getch()
+            if exit == ord('\n'):
+                scr.erase()
+                beginOptions()
+            elif exit == ord('\x1A'):
+                scr.erase()
+                beginOptions()
+
             beginOptions()
 
 
@@ -332,7 +357,7 @@ def initScreen(scr):
     size = scr.getmaxyx()
     height = size[0]
     width = size[1]
-    fillerHeight = height - HEADER_LINES - 18
+    fillerHeight = height - HEADER_LINES
 
     hexes = generateHex(fillerHeight * 2)
 
@@ -373,7 +398,7 @@ def moveInput(scr, inputPad):
 
     size = scr.getmaxyx()
     height = size[0]
-    width = 16
+    width = size[1]
 
     inputPad.addstr('\n>')
 
@@ -381,26 +406,26 @@ def moveInput(scr, inputPad):
 
     inputPad.refresh(0, 0,
                      int(height - cursorPos[0] - 1),
-                     int(width - CONST_CHARS),
+                     int(width / 2 + CONST_CHARS),
                      int(height - 1),
-                     int(width))
+                     int(width - 1))
 
 
 def userInput(scr, passwords):
 
     size = scr.getmaxyx()
     height = size[0]
-    width = 16
+    width = size[1]
 
-    inputPad = curses.newpad(height, int(width - CONST_CHARS +20))
+    inputPad = curses.newpad(height, int(width / 2 + CONST_CHARS))
 
     attempts = LOGIN_ATTEMPTS
-
-    pwd = passwords[random.randint(0, len(passwords) - 1)]
+    pwd = 'senha'
+    # pwd = passwords[random.randint(0, len(passwords) - 1)]
     curses.noecho()
 
     while attempts > 0:
-        scr.move(int(height - 1), int(width  - CONST_CHARS+1))
+        scr.move(int(height - 1), int(width / 2 + CONST_CHARS + 1))
 
         moveInput(scr, inputPad)
 
@@ -749,13 +774,6 @@ def centeredWrite(window, text, pause = LETTER_PAUSE):
     slowWrite(window, text, pause)
 
 
-
-def handler(signum, frame):
-    pass
-
-
-signal.signal(signal.SIGINT, handler)
-signal.signal(signal.SIGTSTP, handler)
 
 
 try:
