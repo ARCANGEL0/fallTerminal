@@ -4,12 +4,9 @@ import curses
 import time
 import random
 import os
-os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import socket
 import signal
 from playsound import playsound
-from pygame import mixer
-import subprocess
 
 
 def handler(signum, frame):
@@ -420,8 +417,7 @@ def userInput(scr, passwords):
     inputPad = curses.newpad(height, int(width / 2 + CONST_CHARS))
 
     attempts = LOGIN_ATTEMPTS
-    pwd = 'senha'
-    # pwd = passwords[random.randint(0, len(passwords) - 1)]
+     pwd = passwords[random.randint(0, len(passwords) - 1)]
     curses.noecho()
 
     while attempts > 0:
@@ -722,9 +718,7 @@ DELETE = 127
 
 def slowWrite(window, text, pause = LETTER_PAUSE):
 
-    mixer.init()
-    mixer.music.load(os.path.join(__location__,"audio/beep.wav"))
-    mixer.music.play()
+    playsound(os.path.join(__location__,"audio/beep.wav"))
 
 
 
