@@ -417,7 +417,7 @@ def userInput(scr, passwords):
     inputPad = curses.newpad(height, int(width / 2 + CONST_CHARS))
 
     attempts = LOGIN_ATTEMPTS
-     pwd = passwords[random.randint(0, len(passwords) - 1)]
+    pwd = passwords[random.randint(0, len(passwords) - 1)]
     curses.noecho()
 
     while attempts > 0:
