@@ -729,37 +729,42 @@ def slowWrite(window, text, pause = LETTER_PAUSE):
         curses.napms(pause)
 
 ''
-
+    
 
 def upperInput(window, hidden = False, can_newline = True):
 
     inchar = 0
     instr = ''
-    curses.noecho()
-
-    while inchar != NEWLINE:
-        inchar = window.getch()
-        if inchar > 96 and inchar < 123:
-            inchar -= 32
-        if inchar == curses.KEY_BACKSPACE:
-            if len(instr) > 0:
-                instr = instr[:-1]
-                cur = window.getyx()
-                window.move(cur[0], cur[1] - 1)
-                window.clrtobot()
-            else:
+    try:
+        while inchar != NEWLINE:
+            inchar = window.getch()
+            if inchar > 96 and inchar < 123:
+                inchar -= 32
+            if inchar == ord('\b'):
+                if len(instr) > 0:
+                    instr = instr[:-1]
+                    cur = window.getyx()
+                    window.move(cur[0], cur[1] - 1)
+                    window.clrtobot()
+                else:
+                    continue
+            elif inchar > 255:
                 continue
-        elif inchar > 255:
-            continue
-        elif inchar != NEWLINE:
-            instr += chr(inchar)
-            if hidden:
-                window.addch(HIDDEN_MASK)
-            else:
-                window.addch(inchar)
-        elif can_newline:
-            window.addch(NEWLINE)
-    return instr
+            elif inchar != NEWLINE:
+                instr += chr(inchar)
+                if hidden:
+                    window.addch(HIDDEN_MASK)
+                else:
+                    window.addch(inchar)
+            elif can_newline:
+                window.addch(NEWLINE)
+        return instr 
+        
+    except ValueError:
+        # We might have Unicode chars in here, let's use unichr instead
+        beginLogin()
+
+    
 
 def centeredWrite(window, text, pause = LETTER_PAUSE):
 

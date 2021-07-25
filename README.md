@@ -15,6 +15,8 @@ de inicializaçao no logon
 
 E necessario instalar algumas dependencias, caso nao estejam instaladas
 
+> apt-get install ne nano
+
 > pip install -r requirements.txt
 
 > python terminal.py
@@ -23,6 +25,12 @@ E necessario instalar algumas dependencias, caso nao estejam instaladas
 Para deixar mais interessante, voce pode colocar o arquivo python
 para se auto iniciar junto com seu .bashrc ou .zhsrc.
 
+
+## Menu de opções
+
+O menu de opções consta com alguns serviços do meu terminal próprio
+que podem ser inicializados pelo próprio script, como uma shell interativa
+Sinta-se a vontade para adicionar seus próprios selects e modificar ao seu gosto
 
 
 ## Terminal
