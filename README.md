@@ -32,6 +32,15 @@ O menu de opções consta com alguns serviços do meu terminal próprio
 que podem ser inicializados pelo próprio script, como uma shell interativa
 Sinta-se a vontade para adicionar seus próprios selects e modificar ao seu gosto
 
+## Geraçao da senha
+
+A senha do terminal e gerada a partir de um arquivo de texto, que printa todas as palavras na tela e salva uma delas
+aleatoriamente como senha do sistema
+Para visualizar qual a senha escolhida, basta digitar
+> [/ADMIN.F PASS] 
+no terminal do login para visualizar a senha atual.
+
+
 
 ## Terminal
 
