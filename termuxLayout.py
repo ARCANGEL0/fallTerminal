@@ -6,8 +6,8 @@ import random
 import os
 import socket
 import signal
+from playsound import playsound
 import psutil
-
 
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
@@ -21,6 +21,8 @@ def handler(signum, frame):
 
 signal.signal(signal.SIGINT, handler)
 signal.signal(signal.SIGTSTP, handler)
+
+
 
 
 
@@ -69,12 +71,10 @@ MENU_HEAD2 = (
 
 MENU1 = [
     'Acessar terminal',
-    'Iniciar desktop',
+    'Logs',
     'Opcoes',
     'Sair'
 ]
-
-
 
 MENU2 = [
     'Modificar zshrc',
@@ -127,12 +127,10 @@ LOCK_TXT2 = 'PLEASE CONTACT AN ADMINISTRATOR'
 LOCK_TXT3 = '! SECURITY BYPASS ATTEMPT DETECTED !'
 
 
-BLOQUEIO = 100000
+BLOQUEIO = True
 
 
 # ----------- funcoes --------------------
-
-
 
 
 def checkPS(processName):
@@ -151,6 +149,7 @@ def checkPS(processName):
 
 
 
+
 def menuOpcoes(scr):
 
     keyInput = 0
@@ -158,6 +157,19 @@ def menuOpcoes(scr):
     selection_count = len(MENU2)
     selection_start_y = scr.getyx()[0]
     largura = scr.getmaxyx()[1]
+
+
+    if checkPS('mysqld'):
+        MENU2[4] = "Parar MySQL"
+    else:
+        MENU2[4] = "Iniciar MySQL"
+
+    if checkPS('apache2'):
+        MENU2[3] = "Parar apache"
+    else:
+        MENU2[3] = "Iniciar apache"
+
+
 
     while keyInput != novaLinha:
         scr.move(selection_start_y, 0)
@@ -225,19 +237,35 @@ def menuOpcoes(scr):
             opcoes()
         elif keyInput == ord('\n') and selection == 3:
             os.system("play " +os.path.join(dir,"audio/keyenter.wav -q"))
-            print("\n\nStarting apache2...")
-            time.sleep(2)
-            os.system('service apache2 start')
-            scr.erase() 
-            opcoes()
+
+            if checkPS('apache2'):
+                print("\n\nStopping apache2...")
+                time.sleep(2)
+                os.system('service apache2 stop')
+                scr.erase() 
+                opcoes()
+            else:
+                print("\n\nStarting apache2...")
+                time.sleep(2)
+                os.system('service apache2 start')
+                scr.erase() 
+                opcoes()
 
         elif keyInput == ord('\n') and selection == 4:
             os.system("play " +os.path.join(dir,"audio/keyenter.wav -q"))
-            print("\n\nStarting mysql...")
-            time.sleep(2)
-            os.system('service mysql start')
-            scr.erase() 
-            opcoes()
+    
+            if checkPS('mysqld'):
+                print("\n\nStopping mysql...")
+                time.sleep(2)
+                os.system('service mysql stop')
+                scr.erase() 
+                opcoes()
+            else:
+                print("\n\nStarting mysql...")
+                time.sleep(2)
+                os.system('service mysql start')
+                scr.erase() 
+                opcoes()
 
 
         elif keyInput == ord('\n') and selection == 5:
@@ -256,13 +284,14 @@ def criarMenu(scr):
     largura = scr.getmaxyx()[1]
 
 
-            
+
     if checkPS('Xvnc'):
       MENU1[1] = 'Encerrar desktop'
     else:
       MENU1[1] = 'Iniciar desktop'
     
   
+
     while keyInput != novaLinha:
         scr.move(selection_start_y, 0)
         line = 0
@@ -290,7 +319,7 @@ def criarMenu(scr):
             os.system("play " +os.path.join(dir,"audio/keyenter.wav -q"))
             print("\n\n\nEntering tty terminal...")
             time.sleep(2)
-            sys.exit()
+            os.system('tmux')
 
 
         elif keyInput == ord('\n') and selection == 1:
@@ -305,7 +334,6 @@ def criarMenu(scr):
      
             scr.erase()
             menu()
-
             
 
         elif keyInput == ord('\n') and selection == 2:
@@ -377,7 +405,6 @@ def menu():
 def opcoes():
     res = curses.wrapper(initOpcoes)
     return res
-
 
 
 
@@ -582,7 +609,6 @@ def login():
 
 
 
-
 def initLock(scr):
     """
     Start the locked out portion of the terminal
@@ -599,7 +625,6 @@ def initLock(scr):
     centr(scr, LOCK_TXT2)
     scr.refresh()
     curses.napms(BLOQUEIO)
-    exit()
 
 def bloquearTela():
     """
@@ -713,7 +738,7 @@ def cap_string(window, hidden = False, can_novaLinha = True):
             keyInput = window.getch()
             if keyInput > 96 and keyInput < 123:
                 keyInput -= 32
-            if keyInput == curses.KEY_LEFT:
+            if keyInput == ord('\b'):
                 if len(def_string) > 0:
                     def_string = def_string[:-1]
                     cur = window.getyx()
