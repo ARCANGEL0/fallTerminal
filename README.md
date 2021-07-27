@@ -38,6 +38,7 @@ A senha do terminal e gerada a partir de um arquivo de texto, que printa todas a
 aleatoriamente como senha do sistema
 Para visualizar qual a senha escolhida, basta digitar
 > [/ADMIN.F PASS] 
+
 no terminal do login para visualizar a senha atual.
 
 
