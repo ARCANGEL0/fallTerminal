@@ -738,7 +738,7 @@ def cap_string(window, hidden = False, can_novaLinha = True):
             keyInput = window.getch()
             if keyInput > 96 and keyInput < 123:
                 keyInput -= 32
-            if keyInput == ord('\b'):
+            if keyInput == curses.KEY_LEFT:
                 if len(def_string) > 0:
                     def_string = def_string[:-1]
                     cur = window.getyx()
