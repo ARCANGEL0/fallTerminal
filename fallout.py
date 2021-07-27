@@ -7,6 +7,7 @@ import os
 import socket
 import signal
 from playsound import playsound
+import psutil
 
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
@@ -20,6 +21,8 @@ def handler(signum, frame):
 
 signal.signal(signal.SIGINT, handler)
 signal.signal(signal.SIGTSTP, handler)
+
+
 
 
 
@@ -66,24 +69,21 @@ MENU_HEAD2 = (
     ''
 )
 
-MENU1 = (
+MENU1 = [
     'Acessar terminal',
     'Logs',
     'Opcoes',
     'Sair'
-)
+]
 
-MENU2 = (
+MENU2 = [
     'Modificar zshrc',
     'Modificar bashrc',
     'Iniciar Fusuma',
     'Iniciar apache',
     'Iniciar MySQL',
     'Voltar'
-
-
-)
-
+]
 
 
 # pagina de login
@@ -132,6 +132,24 @@ BLOQUEIO = True
 
 # ----------- funcoes --------------------
 
+
+def checkPS(processName):
+    '''
+    Check if there is any running process that contains the given name processName.
+    '''
+    #Iterate over the all the running process
+    for proc in psutil.process_iter():
+        try:
+            # Check if process name contains the given name string.
+            if processName.lower() in proc.name().lower():
+                return True
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+    return False;
+
+
+
+
 def menuOpcoes(scr):
 
     keyInput = 0
@@ -139,6 +157,19 @@ def menuOpcoes(scr):
     selection_count = len(MENU2)
     selection_start_y = scr.getyx()[0]
     largura = scr.getmaxyx()[1]
+
+
+    if checkPS('mysqld'):
+        MENU2[4] = "Parar MySQL"
+    else:
+        MENU2[4] = "Iniciar MySQL"
+
+    if checkPS('apache2'):
+        MENU2[3] = "Parar apache"
+    else:
+        MENU2[3] = "Iniciar apache"
+
+
 
     while keyInput != novaLinha:
         scr.move(selection_start_y, 0)
@@ -206,19 +237,35 @@ def menuOpcoes(scr):
             opcoes()
         elif keyInput == ord('\n') and selection == 3:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
-            print("\n\nStarting apache2...")
-            time.sleep(2)
-            os.system('service apache2 start')
-            scr.erase() 
-            opcoes()
+
+            if checkPS('apache2'):
+                print("\n\nStopping apache2...")
+                time.sleep(2)
+                os.system('service apache2 stop')
+                scr.erase() 
+                opcoes()
+            else:
+                print("\n\nStarting apache2...")
+                time.sleep(2)
+                os.system('service apache2 start')
+                scr.erase() 
+                opcoes()
 
         elif keyInput == ord('\n') and selection == 4:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
-            print("\n\nStarting mysql...")
-            time.sleep(2)
-            os.system('service mysql start')
-            scr.erase() 
-            opcoes()
+    
+            if checkPS('mysqld'):
+                print("\n\nStopping mysql...")
+                time.sleep(2)
+                os.system('service mysql stop')
+                scr.erase() 
+                opcoes()
+            else:
+                print("\n\nStarting mysql...")
+                time.sleep(2)
+                os.system('service mysql start')
+                scr.erase() 
+                opcoes()
 
 
         elif keyInput == ord('\n') and selection == 5:
@@ -492,7 +539,14 @@ def userPad(scr, senhas):
         keypad.move(cursorPos[0] - 1, cursorPos[1] - 1)
         keypad.addstr('>' + guess.upper() + '\n')
 
-        if guess.upper() == senha.upper():
+
+        if guess.upper() == senhaHack.upper():
+            playsound(os.path.join(dir,"audio/keyenter.wav"))
+            keypad.addstr('>'+senha+'\n')
+            playsound(os.path.join(dir,"audio/beep.wav"))
+            continue
+
+        elif guess.upper() == senha.upper():
             playsound(os.path.join(dir,"audio/keyenter.wav"))
 
             keypad.addstr('>Exact match!\n')
@@ -504,10 +558,8 @@ def userPad(scr, senhas):
             curses.napms(LOGIN_PAUSE)
             return senha
 
-        elif guess.upper() == senhaHack.upper():
-            playsound(os.path.join(dir,"audio/keyenter.wav"))
-            keypad.addstr('>'+senha+'\n')
-            playsound(os.path.join(dir,"audio/beep.wav"))
+
+        
 
         else:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
@@ -525,6 +577,7 @@ def userPad(scr, senhas):
             keypad.addstr('>' + str(matched) + '/' + str(senhaLen) +
                             ' correct.\n')
             playsound(os.path.join(dir,"audio/wrongpass.wav"))
+
         tentativas -= 1
         scr.move(SQUARE_Y, 0)
         scr.addstr(str(tentativas))
