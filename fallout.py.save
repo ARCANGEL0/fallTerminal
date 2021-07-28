@@ -127,7 +127,7 @@ LOCK_TXT2 = 'PLEASE CONTACT AN ADMINISTRATOR'
 LOCK_TXT3 = '! SECURITY BYPASS ATTEMPT DETECTED !'
 
 
-BLOQUEIO = 10000000
+BLOQUEIO = True
 
 
 # ----------- funcoes --------------------
@@ -168,11 +168,6 @@ def menuOpcoes(scr):
         MENU2[3] = "Parar apache"
     else:
         MENU2[3] = "Iniciar apache"
-
-    if checkPS('fusuma'):
-        MENU2[2] = "Parar fusuma"
-    else:
-        MENU2[2] = "Iniciar fusuma"
 
 
 
@@ -235,22 +230,11 @@ def menuOpcoes(scr):
 
         elif keyInput == ord('\n') and selection == 2:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
-
-            if checkPS('fusuma'):
-                print("\n\nStopping fusuma...")
-                time.sleep(2)
-                os.system('killall fusuma')
-                scr.erase() 
-                opcoes()
-            else:
-                print("\n\nStarting fusuma...")
-                time.sleep(2)
-                os.system('fusuma -d')
-                scr.erase() 
-                opcoes()
-
-
-
+            print("\n\nStarting fusuma...")
+            time.sleep(2)
+            os.system('fusuma -d')
+            scr.erase()
+            opcoes()
         elif keyInput == ord('\n') and selection == 3:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
 
@@ -575,6 +559,8 @@ def userPad(scr, senhas):
             return senha
 
 
+        
+
         else:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
 
@@ -791,6 +777,8 @@ def centr(window, text, pause = Lpausa):
 
 
 
+   
+### iniciar 
 
 
 if __name__ == '__main__':
