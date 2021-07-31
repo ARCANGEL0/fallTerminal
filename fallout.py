@@ -73,7 +73,8 @@ MENU1 = [
     'Acessar terminal',
     'Logs',
     'Opcoes',
-    'Sair'
+    'Log off',
+    'Desligar'
 ]
 
 MENU2 = [
@@ -354,6 +355,11 @@ def criarMenu(scr):
             pid = os.getppid()
             os.kill(pid,9)
 
+        elif keyInput == ord('\n') and selection == 4:
+            playsound(os.path.join(dir,"audio/keyenter.wav"))
+            print("\n\n\nShutting down...")
+            time.sleep(5)
+            os.system("systemctl poweroff")
 
 
 def initMenu(scr):

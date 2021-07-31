@@ -71,7 +71,7 @@ MENU_HEAD2 = (
 
 MENU1 = [
     'Acessar terminal',
-    'Logs',
+    'Iniciar Desktop',
     'Opcoes',
     'Sair'
 ]
@@ -85,49 +85,6 @@ MENU2 = [
     'Voltar'
 ]
 
-
-# pagina de login
-
-LOGIN_TXT = 'ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL'
-
-
-NUMCHARS = 16
-
-SQUARE_X = 19
-SQUARE_Y = 3
-
-TENTATIVAS_MAX = 4
-
-LINHAS_HD = 5
-
-LOGIN_PAUSE = 1000
-
-POINTER = 0xf650
-
-ELEMNT = '!@#$%^*()_-+={}[]|\\:;\'",<>./?'
-
-
-
-
-LOGIN_TXT = 'WELCOME TO ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL'
-
-LOGIN_PASS = 'ENTER PASSWORD NOW'
-
-LOGIN_ERROR = 'INCORRECT PASSWORD, PLEASE TRY AGAIN'
-
-
-LOGIN_USER = 'LOGON '
-
-
-# tela bloqueada
-
-LOCK_TXT1 = 'TERMINAL LOCKED'
-LOCK_TXT2 = 'PLEASE CONTACT AN ADMINISTRATOR'
-
-LOCK_TXT3 = '! SECURITY BYPASS ATTEMPT DETECTED !'
-
-
-BLOQUEIO = True
 
 
 # ----------- funcoes --------------------
@@ -408,229 +365,6 @@ def opcoes():
 
 
 
-def gPointer(n):
-
-    num = POINTER
-    point_array = []
-    for i in range(n):
-        point_array.append(num)
-        num += 12
-    return point_array
-
-
-def getELEMNT(n):
-
-    count = len(ELEMNT)
-    simbolos = ""
-    for i in range(int(n)):
-        simbolos += ELEMNT[random.randint(0, count - 1)]
-    return simbolos
-
-
-def f_senhas():
-
-    senha_array = []
-
-    
-
-    with open(os.path.join(dir, "pass")) as senha_ln:
-        for line in senha_ln:
-            if not line.strip():
-                senha_array.append([])
-            elif len(senha_array) > 0:
-                senha_array[len(senha_array) - 1].append(line[:-1])
-
-    senhas = senha_array[random.randint(0, len(senha_array) - 1)]
-
-    random.shuffle(senhas)
-    return senhas
-
-
-def SCREENF(length, senhas):
-
-    tela = getELEMNT(length)
-
-    senhaLen = len(senhas[0])
-    senhaCount = len(senhas)
-    i = 0
-    for senha in senhas:
-        maxSkip = int(length / senhaCount - senhaLen)
-        i += random.randint(maxSkip - 2, maxSkip)
-        tela = tela[:i] + senha + tela[i + senhaLen:]
-        i += senhaLen
-    return tela
-
-
-def sInit(scr):
-
-    tTamanho = scr.getmaxyx()
-    altura = tTamanho[0]
-    largura = tTamanho[1]
-    tAltura = altura - LINHAS_HD
-
-    pCols = gPointer(tAltura * 2)
-
-    coluna1 = pCols[:tAltura]
-    coluna2 = pCols[tAltura:]
-
-    tQuant = largura / 2 * tAltura
-    senhas = f_senhas()
-    tela = SCREENF(tQuant, senhas)
-    tCol1, tCol2 = tela[0:len(tela)//2], tela[len(tela)//2:]
-
-
-    tLargura = int(largura / 4)
-
-    typeT(scr, LOGIN_TXT)
-    typeT(scr, '\nENTER PASSWORD NOW\n\n')
-    typeT(scr, str(TENTATIVAS_MAX) + ' ATTEMPT(S) LEFT: ')
-    for i in range(TENTATIVAS_MAX):
-        scr.addch(curses.ACS_BLOCK)
-        typeT(scr, ' ')
-    typeT(scr, '\n\n')
-
-    for i in range(tAltura):
-        typeT(scr, "0x%X %s" % (coluna1[i], tCol1[i * tLargura: (i + 1) * tLargura]), 0)
-        if i < tAltura - 1:
-            scr.addstr('\n')
-
-
-    scr.refresh()
-
-    return senhas
-
-
-def mvPad(scr, keypad):
-
-    tTamanho = scr.getmaxyx()
-    altura = tTamanho[0]
-    largura = tTamanho[1]
-
-    keypad.addstr('\n>')
-
-    cursorPos = keypad.getyx()
-
-    keypad.refresh(0, 0,
-                     int(altura - cursorPos[0] - 1),
-                     int(largura / 2 + NUMCHARS -18),
-                     int(altura - 1),
-                     int(largura - 10))
-
-
-def userPad(scr, senhas):
-
-    tTamanho = scr.getmaxyx()
-    altura = tTamanho[0]
-    largura = tTamanho[1]
-
-    keypad = curses.newpad(altura, int(largura / 2 + NUMCHARS))
-
-    tentativas = TENTATIVAS_MAX
-    
-    senha = senhas[random.randint(0, len(senhas) - 1)]
-    senhaHack = '[/ADMIN.F PASS]'
-
-    curses.noecho()
-
-    while tentativas > 0:
-        scr.move(int(altura - 1), int(largura / 2 + NUMCHARS -16))
-
-        mvPad(scr, keypad)
-
-        guess = cap_string(scr, False, False)
-        cursorPos = keypad.getyx()
-
-        keypad.move(cursorPos[0] - 1, cursorPos[1] - 1)
-        keypad.addstr('>' + guess.upper() + '\n')
-
-        if guess.upper() == senha.upper():
-            os.system("play " +os.path.join(dir,"audio/keyenter.wav -q"))
-
-            keypad.addstr('>Exact match!\n')
-            keypad.addstr('>Please wait\n')
-            keypad.addstr('>while system\n')
-            keypad.addstr('>is accessed.\n')
-            mvPad(scr, keypad)
-            os.system("play " +os.path.join(dir,"audio/correctpass.wav -q"))
-            curses.napms(LOGIN_PAUSE)
-            return senha
-
-        elif guess.upper() == senhaHack.upper():
-            os.system("play " +os.path.join(dir,"audio/keyenter.wav -q"))
-            keypad.addstr('>'+senha+'\n')
-            os.system("play " +os.path.join(dir,"audio/beep.wav -q"))
-
-        else:
-            os.system("play " +os.path.join(dir,"audio/keyenter.wav -q"))
-
-            senhaLen = len(senha)
-            matched = 0
-            try:
-                for i in range(senhaLen):
-                    if senha[i].upper() == guess[i].upper():
-                        matched += 1
-            except IndexError:
-                pass
-
-            keypad.addstr('>Login denied\n')
-            keypad.addstr('>' + str(matched) + '/' + str(senhaLen) +
-                            ' correct.\n')
-            os.system("play " +os.path.join(dir,"audio/wrongpass.wav -q"))
-        tentativas -= 1
-        scr.move(SQUARE_Y, 0)
-        scr.addstr(str(tentativas))
-        scr.move(SQUARE_Y, SQUARE_X)
-        for i in range(TENTATIVAS_MAX):
-            if i < tentativas:
-                scr.addch(curses.ACS_BLOCK)
-            else:
-                scr.addstr(' ')
-            scr.addstr(' ')
-
-    # Out of tentativas
-    return None
-
-def login_menu(scr):
-
-    curses.use_default_colors()
-    tTamanho = scr.getmaxyx()
-    largura = tTamanho[1]
-    altura = tTamanho[0]
-    random.seed()
-    scr.erase()
-    scr.move(0, 0)
-    senhas = sInit(scr)
-    return userPad(scr, senhas)
-
-
-def login():
-
-    return curses.wrapper(login_menu)
-
-
-
-def initLock(scr):
-    """
-    Start the locked out portion of the terminal
-    """
-    curses.use_default_colors()
-    tTamanho = scr.getmaxyx()
-    largura = tTamanho[1]
-    altura = tTamanho[0]
-    scr.erase()
-    curses.curs_set(0)
-    scr.move(int(altura / 2 - 1), 0)
-    centr(scr, LOCK_TXT1)
-    scr.move(int(altura / 2 + 1), 0)
-    centr(scr, LOCK_TXT2)
-    scr.refresh()
-    curses.napms(BLOQUEIO)
-
-def bloquearTela():
-    """
-    Initialize curses and start the locked out process
-    """
-    curses.wrapper(initLock)
 
 
 def initBoot(scr):
@@ -657,8 +391,7 @@ def initBoot(scr):
     curses.napms(Ipausa)
     typeT(scr, TXT6 + '\n\n', delay)
     curses.napms(Ipausa)
-    return True
-
+    return menu()
 def iniciar():
 
     res = curses.wrapper(initBoot)
@@ -670,34 +403,6 @@ def iniciar():
 
 
 
-
-
-
-def initLogin(scr, username, password):
-
-    curses.use_default_colors()
-    scr.erase()
-    scr.move(0, 0)
-
-    curses.noecho()
-    scr.scrollok(True)
-
-    typeT(scr, LOGIN_TXT + '\n\n')
-
-    
-    typeT(scr, '> ')
-    curses.napms(Ipausa)
-    typeT(scr, LOGIN_USER + username.upper() + '\n', delay)
-
-    typeT(scr, '\n' + LOGIN_PASS + '\n\n')
-
-   
-    typeT(scr, '> ')
-    curses.napms(Ipausa)
-    password_stars = mascara * len(password)
-    typeT(scr, password_stars + '\n', delay)
-
-    curses.napms(500)
 
 
 
@@ -729,39 +434,6 @@ def typeT(window, text, pause = Lpausa):
 ''
     
 
-def cap_string(window, hidden = False, can_novaLinha = True):
-
-    keyInput = 0
-    def_string = ''
-    try:
-        while keyInput != novaLinha:
-            keyInput = window.getch()
-            if keyInput > 96 and keyInput < 123:
-                keyInput -= 32
-            if keyInput == curses.KEY_LEFT:
-                if len(def_string) > 0:
-                    def_string = def_string[:-1]
-                    cur = window.getyx()
-                    window.move(cur[0], cur[1] - 1)
-                    window.clrtobot()
-                else:
-                    continue
-            elif keyInput > 255:
-                continue
-            elif keyInput != novaLinha:
-                def_string += chr(keyInput)
-                if hidden:
-                    window.addch(mascara)
-                else:
-                    window.addch(keyInput)
-            elif can_novaLinha:
-                window.addch(novaLinha)
-        return def_string 
-        
-    except ValueError:
-        # We might have Unicode chars in here, let's use unichr instead
-        login()
-
     
 
 def centr(window, text, pause = Lpausa):
@@ -778,9 +450,5 @@ def centr(window, text, pause = Lpausa):
 ### iniciar 
 
 
-if iniciar():
-    senha = login()
-    if senha != None:
-        print(menu())
-    else:
-        bloquearTela()
+iniciar()
+  
