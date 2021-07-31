@@ -6,7 +6,6 @@ import random
 import os
 import socket
 import signal
-from playsound import playsound
 import psutil
 
 #!/usr/bin/env python
@@ -56,8 +55,6 @@ TXT6 = 'SET HALT RESTART/MAIN'
 
 
 MENU_HEAD = (
-    'ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM',
-    'COPYRIGHT 2075-2077 ROBCO INDUSTRIES',
     '-SERVER 6-',
     ''
 )
@@ -391,7 +388,7 @@ def initBoot(scr):
     curses.napms(Ipausa)
     typeT(scr, TXT6 + '\n\n', delay)
     curses.napms(Ipausa)
-    return menu()
+    menu()
 def iniciar():
 
     res = curses.wrapper(initBoot)
@@ -439,7 +436,7 @@ def typeT(window, text, pause = Lpausa):
 def centr(window, text, pause = Lpausa):
 
     largura = window.getmaxyx()[1]
-    window.move(window.getyx()[0], int(largura / 2 - len(text) / 2))
+    window.move(window.getyx()[0], int(largura / 3))
     typeT(window, text, pause)
 
 
