@@ -2,8 +2,7 @@
 import fallout as fall
 
 
-### iniciar 
-
+### iniciar
 if fall.iniciar():
   senha = fall.login()
   if senha != None:

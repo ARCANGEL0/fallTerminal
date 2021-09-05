@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 import sys
 import curses
 import time
@@ -83,6 +83,7 @@ MENU2 = [
     'Iniciar Fusuma',
     'Iniciar apache',
     'Iniciar MySQL',
+    'Iniciar Snap',
     'Voltar'
 ]
 
@@ -160,7 +161,7 @@ def menuOpcoes(scr):
     largura = scr.getmaxyx()[1]
 
 
-    if checkPS('mysqld'):
+    if checkPS('mariadb'):
         MENU2[4] = "Parar MySQL"
     else:
         MENU2[4] = "Iniciar MySQL"
@@ -174,6 +175,12 @@ def menuOpcoes(scr):
         MENU2[2] = "Parar fusuma"
     else:
         MENU2[2] = "Iniciar fusuma"
+
+ if checkPS('snapd'):
+        MENU2[2] = "Parar snap"
+    else:
+        MENU2[2] = "Iniciar snap"
+
 
 
 
@@ -271,7 +278,7 @@ def menuOpcoes(scr):
         elif keyInput == ord('\n') and selection == 4:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
     
-            if checkPS('mysqld'):
+            if checkPS('mariadb'):
                 print("\n\nStopping mysql...")
                 time.sleep(2)
                 os.system('service mysql stop')
@@ -283,9 +290,24 @@ def menuOpcoes(scr):
                 os.system('service mysql start')
                 scr.erase() 
                 opcoes()
-
-
         elif keyInput == ord('\n') and selection == 5:
+            playsound(os.path.join(dir,"audio/keyenter.wav"))
+    
+            if checkPS('snapd'):
+                print("\n\nStopping snap...")
+                time.sleep(2)
+                os.system('service snapd stop')
+                scr.erase() 
+                opcoes()
+            else:
+                print("\n\nStarting snap...")
+                time.sleep(2)
+                os.system('service snapd start')
+                scr.erase() 
+                opcoes()
+
+
+        elif keyInput == ord('\n') and selection == 6:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
             scr.erase() 
             menu()
