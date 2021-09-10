@@ -525,7 +525,7 @@ def sInit(scr):
     tLargura = int(largura / 4)
 
     typeT(scr, LOGIN_TXT)
-    typeT(scr, '\nENTER PASSWORD NOW\n\n')
+    typeT(scr, '\n今すぐパスワードを入力してください\n\n')
     typeT(scr, str(TENTATIVAS_MAX) + ' ATTEMPT(S) LEFT: ')
     for i in range(TENTATIVAS_MAX):
         scr.addch(curses.ACS_BLOCK)
