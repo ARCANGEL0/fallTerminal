@@ -11,6 +11,9 @@ e alterado.
 Projeto pessoal para usar no meu proprio terminal, como um script
 de inicializaçao no logon
 
+
+(Obs, por ser um terminal próprio, a maior parte do texto da interface está em japonês 日本語 )
+
 ## Uso
 
 E necessario instalar algumas dependencias, caso nao estejam instaladas
@@ -28,13 +31,13 @@ para se auto iniciar junto com seu .bashrc ou .zhsrc.
 
 ## Menu de opções
 
-O menu de opções consta com alguns serviços do meu terminal próprio
+O menu de opções consta com alguns serviços do meu terminal próprio ( como apache, mysql, snapd )
 que podem ser inicializados pelo próprio script, como uma shell interativa
 Sinta-se a vontade para adicionar seus próprios selects e modificar ao seu gosto
 
 ## Geraçao da senha
 
-A senha do terminal e gerada a partir de um arquivo de texto, que printa todas as palavras na tela e salva uma delas
+A senha do terminal e gerada a partir de um arquivo de texto (pass) , que printa todas as palavras na tela e salva uma delas
 aleatoriamente como senha do sistema
 Para visualizar qual a senha escolhida, basta digitar
 > [/ADMIN.F PASS] 
