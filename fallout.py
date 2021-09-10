@@ -13,6 +13,8 @@ import psutil
 # -*- coding: utf-8 -*- 
 
 
+
+
 # funcao para lidar com interrupcoes do teclado
 
 def handler(signum, frame):
@@ -36,61 +38,64 @@ dir= os.path.realpath(os.path.join(os.getcwd(),os.path.dirname(__file__))) # peg
 
 # boot
 
-TXT1 = 'SECURITY RESET... '
+TXT1 = '保安がセットし直す。。。'
 
-TXT2 = 'WELCOME TO ROBCO INDUSTRIES (TM) TERMLINK'
+TXT2 = 'ロブコ産業(TM)端末へようこそ'
 
-TXT3 = 'SET TERMINAL/INQUIRE'
+TXT3 = '設定端末 / 問い合わせる'
 
 TXT4 = 'RIT-V300'
 
-TXT5 = 'SET FILE/PROTECTION=OWNER:RWED ACCOUNTS.F'
+TXT5 = '設定 ファイル/プロテクション=オーナー:RWED ADMIN.F'
 
-TXT6 = 'SET HALT RESTART/MAIN'
+TXT6 = '種類 設定します 再起動/メイン'
 
 
 
 
 # menu de selecao
 
-
+TITLE_HEAD =   ( 
+'ロブコ産業',
+'統ーされたオペレ',
+'ティングシステム'
+)
 
 MENU_HEAD = (
-    'ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM',
-    'COPYRIGHT 2075-2077 ROBCO INDUSTRIES',
-    '-SERVER 6-',
+    '版権 2075-2077 ロブコ産業',
+    '-サーバー 6-',
     ''
 )
 
 MENU_HEAD2 = (
-    '      SoftLock Solutions, Inc\n'
-    '"Your Security is Our Security"',
-    '>\\ Welcome, '+ socket.gethostname(),
+    '      ソフト錠前 ソリューション\n'
+    '"あなたのセキュリティは私たちのセキュリティです"',
+    '>\\ こんにちは, '+ socket.gethostname(),
     ''
 )
 
 MENU1 = [
-    'Acessar terminal',
-    'Logs',
-    'Opcoes',
-    'Log off',
-    'Desligar'
+    '端末がアクセス',
+    'ログ',
+    '取捨',
+    'オフ',
+    '電源を切る'
 ]
 
 MENU2 = [
-    'Modificar zshrc',
-    'Modificar bashrc',
-    'Iniciar Fusuma',
-    'Iniciar apache',
-    'Iniciar MySQL',
-    'Iniciar Snap',
-    'Voltar'
+    '帰る',
+    'フスマ を 始める',
+    'あぱちぇ を 始める',
+    'データベース を 始める',
+    'スナップ を 始める',
+    'ブルートゥース を 始める',
+   
 ]
 
 
 # pagina de login
 
-LOGIN_TXT = 'ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL'
+LOGIN_TXT = 'ロブコ産業(TM)端末を手順'
 
 
 NUMCHARS = 16
@@ -111,11 +116,11 @@ ELEMNT = '!@#$%^*()_-+={}[]|\\:;\'",<>./?'
 
 
 
-LOGIN_TXT = 'WELCOME TO ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL'
+LOGIN_TXT = 'ロブコ産業(TM)端末を手順へようこそ'
 
-LOGIN_PASS = 'ENTER PASSWORD NOW'
+LOGIN_PASS = 'パスワードを入力する'
 
-LOGIN_ERROR = 'INCORRECT PASSWORD, PLEASE TRY AGAIN'
+LOGIN_ERROR = 'パスワードが間違っています。 もう一度やり直してください'
 
 
 LOGIN_USER = 'LOGON '
@@ -123,10 +128,10 @@ LOGIN_USER = 'LOGON '
 
 # tela bloqueada
 
-LOCK_TXT1 = 'TERMINAL LOCKED'
-LOCK_TXT2 = 'PLEASE CONTACT AN ADMINISTRATOR'
+LOCK_TXT1 = '端末は鍵を掛けた'
+LOCK_TXT2 = '管理者に連絡してください'
 
-LOCK_TXT3 = '! SECURITY BYPASS ATTEMPT DETECTED !'
+LOCK_TXT3 = '! ALERT | 検出されたセキュリティバイパスの試み !'
 
 
 BLOQUEIO = 10000000
@@ -137,7 +142,7 @@ BLOQUEIO = 10000000
 
 def checkPS(processName):
     '''
-    Check if there is any running process that contains the given name processName.
+    Funcao para checar se servicos estao em execucao
     '''
     #Iterate over the all the running process
     for proc in psutil.process_iter():
@@ -158,29 +163,34 @@ def menuOpcoes(scr):
     selection = 0
     selection_count = len(MENU2)
     selection_start_y = scr.getyx()[0]
-    largura = scr.getmaxyx()[1]
+    largura = scr.getmaxyx()[1] 
+
+    if checkPS('fusuma'):
+        MENU2[1] = "フスマ を 停留"
+    else:
+        MENU2[1] = "フスマ を 始める"
+
+    if checkPS('apache2'):
+        MENU2[2] = "あぱちぇ を 停留"
+    else:
+        MENU2[2] = "あぱちぇ を 始める"
 
 
     if checkPS('mariadb'):
-        MENU2[4] = "Parar MySQL"
+        MENU2[3] = "データベース を 停留"
     else:
-        MENU2[4] = "Iniciar MySQL"
+        MENU2[3] = "データベース を 始める"
 
-    if checkPS('apache2'):
-        MENU2[3] = "Parar apache"
+
+    if checkPS('snapd'):
+        MENU2[4] = "スナップ を 停留"
     else:
-        MENU2[3] = "Iniciar apache"
+        MENU2[4] = "スナップ を 始める"
 
-    if checkPS('fusuma'):
-        MENU2[2] = "Parar fusuma"
+    if checkPS('bluetoothd'):
+    	MENU2[5] = "ブルートゥース を 停留"
     else:
-        MENU2[2] = "Iniciar fusuma"
-
- if checkPS('snapd'):
-        MENU2[2] = "Parar snap"
-    else:
-        MENU2[2] = "Iniciar snap"
-
+    	MENU2[5] = "ブルートゥース を 始める"
 
 
 
@@ -189,8 +199,7 @@ def menuOpcoes(scr):
         line = 0
         for sel in MENU2:
             whole_line = '> ' + MENU2[line]
-            space = largura - len(whole_line) % largura
-            whole_line += ' ' * space
+            whole_line += '\n'
 
             if line == selection:
                 scr.addstr(whole_line, curses.A_REVERSE)
@@ -208,50 +217,22 @@ def menuOpcoes(scr):
 
         if keyInput == ord('\n') and selection == 0:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
-            print("\n\n\nOpening editor...")
-            time.sleep(2)
             scr.erase() 
-            os.system('ne $HOME/.zshrc')
-            exit = scr.getch()
+            menu()
 
-            if exit == ord('\n'):
-                scr.erase()
-                opcoes()
-            elif exit == ord('\x1A'):
-                scr.erase()
-                opcoes()
 
-            opcoes()
 
         elif keyInput == ord('\n') and selection == 1:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
-            print("\n\n\nOpening editor...")
-            time.sleep(2)
-            scr.erase() 
-
-            os.system('ne $HOME/.bashrc')
-            exit = scr.getch()
-            if exit == ord('\n'):
-                scr.erase()
-                opcoes()
-            elif exit == ord('\x1A'):
-                scr.erase()
-                opcoes()
-
-            opcoes()
-
-
-        elif keyInput == ord('\n') and selection == 2:
-            playsound(os.path.join(dir,"audio/keyenter.wav"))
 
             if checkPS('fusuma'):
-                print("\n\nStopping fusuma...")
+                print("\n\nフスマ を 停留ている。。。")
                 time.sleep(2)
                 os.system('killall fusuma')
                 scr.erase() 
                 opcoes()
             else:
-                print("\n\nStarting fusuma...")
+                print("\n\nフスマ を 始めるている。。。")
                 time.sleep(2)
                 os.system('fusuma -d')
                 scr.erase() 
@@ -259,76 +240,90 @@ def menuOpcoes(scr):
 
 
 
-        elif keyInput == ord('\n') and selection == 3:
+        elif keyInput == ord('\n') and selection == 2:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
 
             if checkPS('apache2'):
-                print("\n\nStopping apache2...")
+                print("\n\nあぱちぇ を 停留ている。。。")
                 time.sleep(2)
-                os.system('service apache2 stop')
+                os.system('echo { SENHA ROOT }  | sudo -S -k service apache2 stop')
                 scr.erase() 
                 opcoes()
             else:
-                print("\n\nStarting apache2...")
+                print("\n\nあぱちぇ を 始めるている。。。")
                 time.sleep(2)
-                os.system('service apache2 start')
+                os.system('echo { SENHA ROOT }  | sudo -S -k service apache2 start')
                 scr.erase() 
                 opcoes()
 
-        elif keyInput == ord('\n') and selection == 4:
+        elif keyInput == ord('\n') and selection == 3:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
     
             if checkPS('mariadb'):
-                print("\n\nStopping mysql...")
+                print("\n\nデータベース を 停留ている。。。")
                 time.sleep(2)
-                os.system('service mysql stop')
+                os.system('echo { SENHA ROOT }  | sudo -S -k service mysql stop')
                 scr.erase() 
                 opcoes()
             else:
-                print("\n\nStarting mysql...")
+                print("\n\nデータベース を 始めるている。。。")
                 time.sleep(2)
-                os.system('service mysql start')
+                os.system('echo { SENHA ROOT }  | sudo -S -k service mysql start')
                 scr.erase() 
                 opcoes()
+        elif keyInput == ord('\n') and selection == 4:
+            playsound(os.path.join(dir,"audio/keyenter.wav"))
+    
+            if checkPS('snapd'):
+                print("\n\nスナップ を 停留ている。。。")
+                time.sleep(2)
+                os.system('echo { SENHA ROOT }  | sudo -S -k service snapd stop')
+                scr.erase() 
+                opcoes()
+            else:
+                print("\n\nスナップ を 始めるている。。。")
+                time.sleep(2)
+                os.system('echo { SENHA ROOT }  | sudo -S -k service snapd start && echo { SENHA ROOT }  |  sudo -S -k service apparmor start')
+                scr.erase() 
+                opcoes()
+
         elif keyInput == ord('\n') and selection == 5:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
     
             if checkPS('snapd'):
-                print("\n\nStopping snap...")
+                print("\n\nブルートゥース を 停留ている。。。")
                 time.sleep(2)
-                os.system('service snapd stop')
+                os.system('echo { SENHA ROOT }  | sudo -S -k killall bluetoothd')
                 scr.erase() 
                 opcoes()
             else:
-                print("\n\nStarting snap...")
+                print("\n\nブルートゥース を 始めるている。。。")
                 time.sleep(2)
-                os.system('service snapd start')
+                os.system('echo { SENHA ROOT }  | sudo -S -k bluetoothd & disown')
                 scr.erase() 
                 opcoes()
-
-
-        elif keyInput == ord('\n') and selection == 6:
-            playsound(os.path.join(dir,"audio/keyenter.wav"))
-            scr.erase() 
-            menu()
-
+	    
 
 def criarMenu(scr):
+   
+
+
+
 
 
     keyInput = 0
     selection = 0
     selection_count = len(MENU1)
     selection_start_y = scr.getyx()[0]
-    largura = scr.getmaxyx()[1]
+    largura = scr.getmaxyx()[1] 
 
     while keyInput != novaLinha:
         scr.move(selection_start_y, 0)
         line = 0
         for sel in MENU1:
             whole_line = '> ' + MENU1[line]
-            space = largura - len(whole_line) % largura
-            whole_line += ' ' * space
+            space = largura - len(whole_line) % largura + 20
+            whole_line += '\n'
 
             if line == selection:
                 scr.addstr(whole_line, curses.A_REVERSE)
@@ -347,17 +342,23 @@ def criarMenu(scr):
 
         if keyInput == ord('\n') and selection == 0:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
-            print("\n\n\nEntering tty terminal...")
+            print("\n\n\n端末を入るている。。。")
+            playsound(os.path.join(dir,"audio/EnterTerminal.mp3"))
+
             time.sleep(2)
             os.system('tmux')
 
 
         elif keyInput == ord('\n') and selection == 1:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
-            
-            
-            
+            print("\n\n\nログをアクセスている。。。")
+
+            playsound(os.path.join(dir,"audio/sysLogs.mp3"))
+
+            time.sleep(2)
+
             print(os.system('journalctl'))
+
             exit = scr.getch()
             if exit == ord('\n'):
                 scr.erase()
@@ -369,10 +370,15 @@ def criarMenu(scr):
 
         elif keyInput == ord('\n') and selection == 2:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
+            playsound(os.path.join(dir,"audio/options.mp3"))
+
             opcoes()
+
 
         elif keyInput == ord('\n') and selection == 3:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
+            playsound(os.path.join(dir,"audio/windowClose.mp3"))
+
             time.sleep(3)
             pid = os.getppid()
             os.kill(pid,9)
@@ -380,20 +386,24 @@ def criarMenu(scr):
         elif keyInput == ord('\n') and selection == 4:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
             print("\n\n\nShutting down...")
+            playsound(os.path.join(dir,"audio/shutDown.mp3"))
+
             time.sleep(5)
             os.system("systemctl poweroff")
 
 
 def initMenu(scr):
-    """
-    Print the MENU1 and allow the user to select one
-    """
+  
     curses.use_default_colors()
     scr.erase()
     scr.move(0, 0)
     curses.curs_set(0)
-
+  
     largura = scr.getmaxyx()[1]
+
+
+    for header in TITLE_HEAD:
+        centr(scr, header + '\n')
 
     for header in MENU_HEAD:
         centr(scr, header + '\n')
@@ -408,9 +418,7 @@ def initMenu(scr):
     return criarMenu(scr)
 
 def initOpcoes(scr):
-    """
-    Print the MENU1 and allow the user to select one
-    """
+   
     curses.use_default_colors()
     scr.erase()
     scr.move(0, 0)
@@ -432,9 +440,7 @@ def initOpcoes(scr):
 
 
 def menu():
-    """
-    Initialize curses and start the boot process
-    """
+   
     res = curses.wrapper(initMenu)
     return res
 
@@ -600,6 +606,8 @@ def userPad(scr, senhas):
             mvPad(scr, keypad)
             playsound(os.path.join(dir,"audio/correctpass.wav"))
             curses.napms(LOGIN_PAUSE)
+            playsound(os.path.join(dir,"audio/welcome.wav"))
+
             return senha
 
 
