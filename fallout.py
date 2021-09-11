@@ -226,12 +226,14 @@ def menuOpcoes(scr):
             playsound(os.path.join(dir,"audio/keyenter.wav"))
 
             if checkPS('fusuma'):
+                playsound(os.path.join(dir,"audio/stopFusuma.wav"))
                 print("\n\nフスマ を 停留ている。。。")
                 time.sleep(2)
                 os.system('killall fusuma')
                 scr.erase() 
                 opcoes()
             else:
+                playsound(os.path.join(dir,"audio/startFusuma.wav"))
                 print("\n\nフスマ を 始めるている。。。")
                 time.sleep(2)
                 os.system('fusuma -d')
@@ -244,15 +246,17 @@ def menuOpcoes(scr):
             playsound(os.path.join(dir,"audio/keyenter.wav"))
 
             if checkPS('apache2'):
+                playsound(os.path.join(dir,"audio/stopApache.wav"))
                 print("\n\nあぱちぇ を 停留ている。。。")
                 time.sleep(2)
-                os.system('echo { SENHA ROOT }  | sudo -S -k service apache2 stop')
+                os.system('echo { ROOT PASSWORD } | sudo -S -k service apache2 stop')
                 scr.erase() 
                 opcoes()
             else:
+                playsound(os.path.join(dir,"audio/startApache.wav"))
                 print("\n\nあぱちぇ を 始めるている。。。")
                 time.sleep(2)
-                os.system('echo { SENHA ROOT }  | sudo -S -k service apache2 start')
+                os.system('echo { ROOT PASSWORD } | sudo -S -k service apache2 start')
                 scr.erase() 
                 opcoes()
 
@@ -260,46 +264,53 @@ def menuOpcoes(scr):
             playsound(os.path.join(dir,"audio/keyenter.wav"))
     
             if checkPS('mariadb'):
+                playsound(os.path.join(dir,"audio/startBluetooth.wav"))
                 print("\n\nデータベース を 停留ている。。。")
                 time.sleep(2)
-                os.system('echo { SENHA ROOT }  | sudo -S -k service mysql stop')
+                os.system('echo { ROOT PASSWORD } | sudo -S -k service mysql stop')
                 scr.erase() 
                 opcoes()
             else:
+                playsound(os.path.join(dir,"audio/startSql.wav"))
                 print("\n\nデータベース を 始めるている。。。")
                 time.sleep(2)
-                os.system('echo { SENHA ROOT }  | sudo -S -k service mysql start')
+                os.system('echo { ROOT PASSWORD } | sudo -S -k service mysql start')
                 scr.erase() 
                 opcoes()
         elif keyInput == ord('\n') and selection == 4:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
     
             if checkPS('snapd'):
+                playsound(os.path.join(dir,"audio/stopSnap.wav"))
                 print("\n\nスナップ を 停留ている。。。")
                 time.sleep(2)
-                os.system('echo { SENHA ROOT }  | sudo -S -k service snapd stop')
+                os.system('echo { ROOT PASSWORD } | sudo -S -k service snapd stop')
                 scr.erase() 
                 opcoes()
             else:
+                playsound(os.path.join(dir,"audio/startSnap.wav"))
                 print("\n\nスナップ を 始めるている。。。")
                 time.sleep(2)
-                os.system('echo { SENHA ROOT }  | sudo -S -k service snapd start && echo { SENHA ROOT }  |  sudo -S -k service apparmor start')
+                os.system('echo { ROOT PASSWORD } | sudo -S -k service snapd start && echo { ROOT PASSWORD } |  sudo -S -k service apparmor start')
                 scr.erase() 
                 opcoes()
 
         elif keyInput == ord('\n') and selection == 5:
             playsound(os.path.join(dir,"audio/keyenter.wav"))
     
-            if checkPS('snapd'):
+            if checkPS('bluetoothd'):
+                playsound(os.path.join(dir,"audio/stopBluetooth.wav"))
+
                 print("\n\nブルートゥース を 停留ている。。。")
                 time.sleep(2)
-                os.system('echo { SENHA ROOT }  | sudo -S -k killall bluetoothd')
+                os.system('echo { ROOT PASSWORD } | sudo -S -k killall bluetoothd')
                 scr.erase() 
                 opcoes()
             else:
+                playsound(os.path.join(dir,"audio/startBluetooth.wav"))
                 print("\n\nブルートゥース を 始めるている。。。")
                 time.sleep(2)
-                os.system('echo { SENHA ROOT }  | sudo -S -k bluetoothd & disown')
+                os.system('echo { ROOT PASSWORD } | sudo -S -k bluetoothd & disown')
                 scr.erase() 
                 opcoes()
 	    
