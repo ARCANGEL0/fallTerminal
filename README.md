@@ -5,28 +5,30 @@ Script em python inspirado na franquia de Jogos Fallout
 que simula um terminal e a autenticaçao do terminal
 
 Conta com um menu pos-autenticaçao para sair e acessar o terminal tty, 
-opçoes para modificar arquivos, iniciar serviços e afins, podendo ser customizado
+opçoes para modificar e iniciar serviços e afins, podendo ser customizado
 e alterado.
 
 Projeto pessoal para usar no meu proprio terminal, como um script
-de inicializaçao no logon
-
-
-(Obs, por ser um terminal próprio, a maior parte do texto da interface está em japonês 日本語 )
+de inicializaçao no boot
 
 ## Uso
 
-E necessario instalar algumas dependencias, caso nao estejam instaladas
-
-> apt-get install ne nano
+E necessario instalar certos pacotes, caso nao estejam instalados
 
 > pip install -r requirements.txt
 
-> python terminal.py
+> python3 init.py
 
 
-Para deixar mais interessante, voce pode colocar o arquivo python
-para se auto iniciar junto com seu .bashrc ou .zhsrc.
+Para deixar mais interessante, voce pode colocar o arquivo init.py
+para se iniciar juntamente com seu bash no seu arquivo .zshrc/.bashrc
+e criar um terminal com autenticação estilo Fallout.
+
+> git clone https://github.com/ARCANGEL0/fallTerminal 
+
+> cd fallTerminal
+
+> echo "python3 $(pwd)/init.py" >> $HOME/.bashrc
 
 
 ## Menu de opções
@@ -34,6 +36,7 @@ para se auto iniciar junto com seu .bashrc ou .zhsrc.
 O menu de opções consta com alguns serviços do meu terminal próprio ( como apache, mysql, snapd )
 que podem ser inicializados pelo próprio script, como uma shell interativa
 Sinta-se a vontade para adicionar seus próprios selects e modificar ao seu gosto
+
 
 ## Geraçao da senha
 
