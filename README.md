@@ -53,4 +53,9 @@ no terminal do login para visualizar a senha atual.
 
 Para aderir mais ao estilo retro de Terminal,
 recomendo o cool-retro-term de Swordfish90
+
+Para ficar mais igual ao estilo do terminal do fallout,
+exportei meu JSON de estilização do CRT no repo 
+como falout.json
+
 (https://github.com/Swordfish90/cool-retro-term)
