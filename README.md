@@ -43,7 +43,7 @@ Sinta-se a vontade para adicionar seus próprios selects e modificar ao seu gost
 A senha do terminal e gerada a partir de um arquivo de texto (pass) , que printa todas as palavras na tela e salva uma delas
 aleatoriamente como senha do sistema
 Para visualizar qual a senha escolhida, basta digitar
-> [/ADMIN.F PASS] 
+> /ADMIN.L
 
 no terminal do login para visualizar a senha atual.
 

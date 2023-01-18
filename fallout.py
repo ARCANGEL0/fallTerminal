@@ -205,7 +205,7 @@ def menuOpcoes(scr):
                 scr.erase()
                 opcoes()
             else:
-                playsound(os.path.join(dir, "audio/apacheOn"))
+                playsound(os.path.join(dir, "audio/apacheOn.mp3"))
                 print("\n\nStarting apache2")
                 time.sleep(2)
                 os.system('service apache2 start')
@@ -472,7 +472,7 @@ def sInit(scr):
     tLargura = int(largura / 4)
 
     typeT(scr, LOGIN_TXT)
-    typeT(scr, '\n今すぐパスワードを入力してください\n\n')
+    typeT(scr, '\nENTER YOUR PASSWORD NOW\n\n')
     typeT(scr, str(TENTATIVAS_MAX) + ' ATTEMPT(S) LEFT: ')
     for i in range(TENTATIVAS_MAX):
         scr.addch(curses.ACS_BLOCK)
@@ -523,7 +523,7 @@ def userPad(scr, senhas):
     tentativas = TENTATIVAS_MAX
 
     senha = senhas[random.randint(0, len(senhas) - 1)]
-    senhaHack = '[/ADMIN.F PASS]'
+    senhaHack = '/ADMIN.L'
 
     curses.noecho()
 
