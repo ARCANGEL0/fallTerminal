@@ -30,9 +30,9 @@
  </td>
  </tr>
  <tr><td><a href="README.md"><img 
- src="https://custom-icon-badges.demolab.com/badge/English-green.svg?logo=fallout" ></a></td>
- <td><a href="README_fr.md"><img src="https://custom-icon-badges.demolab.com/badge/Français-green.svg?logo=fallout" > </a></td>
- <td><a href="README_pt.md"><img src="https://custom-icon-badges.demolab.com/badge/Português-green.svg?logo=fallout" > </a></td></tr>
+ src="https://custom-icon-badges.demolab.com/badge/English-%23092e13.svg?logo=fallout" ></a></td>
+ <td><a href="README_fr.md"><img src="https://custom-icon-badges.demolab.com/badge/Français-%23092e13.svg?logo=fallout" > </a></td>
+ <td><a href="README_pt.md"><img src="https://custom-icon-badges.demolab.com/badge/Português-%23092e13.svg?logo=fallout" > </a></td></tr>
 </table>
 
 
