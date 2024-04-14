@@ -1,10 +1,30 @@
 <div align="center">
-<center><p><img src="./fall.png" width='45%' height='45%'></img>
-<h1>Fallout Shell</h1>
+<center><p><img src="./fall.png" width='35%' height='35%'></img>
+<h1>ROBCO Unified Operating System</h1>
 </center>
 </div>
 
-# Fallout Terminal Shell
+<p align="center">
+  
+  <a href="https://www.gnu.org/licenses/agpl-3.0">
+    <img src="https://img.shields.io/badge/License-AGPL_v3-blue.svg" alt="License: AGPL v3">
+</a>
+<a href="https://github.com/ARCANGEL0/PortSys">
+    <img src="https://views.whatilearened.today/views/github/ARCANGEL0/PortSys.svg" alt="Views">
+</a>
+<a href="https://github.com/ARCANGEL0/PortSys">
+    <img src="https://img.shields.io/github/stars/ARCANGEL0/PortSys?label=Stars&color=yellow&style=flat-square" alt="Stars">
+</a>
+<a href="https://github.com/ARCANGEL0/PortSys">
+    <img src="https://img.shields.io/github/watchers/ARCANGEL0/PortSys?label=Watchers&color=green&style=flat-square" alt="Watchers">
+</a>
+<a href="https://github.com/ARCANGEL0/PortSys">
+    <img src="https://img.shields.io/github/forks/ARCANGEL0/PortSys?label=Forks&color=orange&style=flat-square" alt="Forks">
+</a>
+</p>
+
+
+#      Fallout Terminal Shell
 ====================================
 
 Script em python inspirado na franquia de Jogos Fallout
