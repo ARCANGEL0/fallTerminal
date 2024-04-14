@@ -13,13 +13,13 @@
     <img src="https://views.whatilearened.today/views/github/ARCANGEL0/PortSys.svg" alt="Views">
 </a>
 <a href="https://github.com/ARCANGEL0/PortSys">
-    <img src="https://img.shields.io/github/stars/ARCANGEL0/PortSys?label=Stars&color=yellow&style=flat-square" alt="Stars">
+    <img src="https://img.shields.io/github/stars/ARCANGEL0/PortSys?label=Stars&color=yellow&style=for-the-badge" alt="Stars">
 </a>
 <a href="https://github.com/ARCANGEL0/PortSys">
-    <img src="https://img.shields.io/github/watchers/ARCANGEL0/PortSys?label=Watchers&color=green&style=flat-square" alt="Watchers">
+    <img src="https://img.shields.io/github/watchers/ARCANGEL0/PortSys?label=Watchers&color=green&style=for-the-badge" alt="Watchers">
 </a>
 <a href="https://github.com/ARCANGEL0/PortSys">
-    <img src="https://img.shields.io/github/forks/ARCANGEL0/PortSys?label=Forks&color=orange&style=flat-square" alt="Forks">
+    <img src="https://img.shields.io/github/forks/ARCANGEL0/PortSys?label=Forks&color=orange&style=for-the-badge" alt="Forks">
 </a>
 </p>
 
@@ -30,8 +30,8 @@
  </td>
  </tr>
  <tr><td><a href="README.md"><img 
- src="https://custom-icon-badges.demolab.com/badge/English-%23092e13.svg?logo=fallout" width='140vw' height='45vh' ></a></td>
- <td><a href="README_fr.md"><img src="https://custom-icon-badges.demolab.com/badge/Français-%23092e13.svg?logo=fallout" width='140vw' height='45vh' > </a></td>
+ src="https://custom-icon-badges.demolab.com/badge/English-%23092e13.svg?logo=fallout&style=for-the-badge" width='140vw' height='45vh' ></a></td>
+ <td><a href="README_fr.md"><img src="https://custom-icon-badges.demolab.com/badge/Français-%23092e13.svg?logo=fallout&style=for-the-badge" width='140vw' height='45vh' > </a></td>
  <td><a href="README_pt.md"><img src="https://custom-icon-badges.demolab.com/badge/Português-%23092e13.svg?logo=fallout&style=for-the-badge" width='140vw' height='45vh' > </a></td></tr>
 </table>
 
