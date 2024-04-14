@@ -23,6 +23,18 @@
 </a>
 </p>
 
+  <table align="center">
+ <tr align='center'>
+ <td colspan="3">
+ ၊၊||၊||၊
+ </td>
+ </tr>
+ <tr><td><a href="README.md"><img 
+ src="https://custom-icon-badges.demolab.com/badge/English-green.svg?logo=fallout" height="13"></a></td>
+ <td><a href="README_fr.md"><img src="https://custom-icon-badges.demolab.com/badge/Français-green.svg?logo=fallout" height="13"> </a></td>
+ <td><a href="README_pt.md"><img src="https://custom-icon-badges.demolab.com/badge/Português-green.svg?logo=fallout" height="13"> </a></td></tr>
+</table>
+
 
 #      Fallout Terminal Shell
 ====================================
