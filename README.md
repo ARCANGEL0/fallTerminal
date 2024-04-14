@@ -7,10 +7,7 @@
 <p align="center">
   
   <a href="https://www.gnu.org/licenses/agpl-3.0">
-    <img src="https://img.shields.io/badge/License-AGPL_v3-blue.svg&style=for-the-badge" alt="License: AGPL v3">
-</a>
-<a href="https://github.com/ARCANGEL0/fallTerminal">
-    <img src="https://views.whatilearened.today/views/github/ARCANGEL0/fallTerminal.svg&style=for-the-badge" alt="Views">
+    <img src="https://img.shields.io/badge/License-AGPL_v3-blue.svg?style=for-the-badge" alt="License: AGPL v3">
 </a>
 <a href="https://github.com/ARCANGEL0/fallTerminal">
     <img src="https://img.shields.io/github/stars/ARCANGEL0/fallTerminal?label=Stars&color=yellow&style=for-the-badge" alt="Stars">
@@ -39,28 +36,25 @@
 #      Fallout Terminal Shell
 ====================================
 
-Script em python inspirado na franquia de Jogos Fallout
-que simula um terminal e a autenticaçao do terminal
+Python script inspired by the Fallout game franchise
+which simulates authenthication hacking from Robco machines
 
-Conta com um menu pos-autenticaçao para sair e acessar o terminal tty, 
-opçoes para modificar e iniciar serviços e afins, podendo ser customizado
-e alterado.
+It has a post-authentication menu to exit and access the tty terminal,
+options to modify and start services and the others, which can be customizedand changed.
 
-Projeto pessoal para usar no meu proprio terminal, como um script
-de inicializaçao no boot
+Personal project to use in my own terminal, as a script for terminal initialization 
 
-## Uso
+## Usage
 
-E necessario instalar certos pacotes, caso nao estejam instalados
+It is necessary to install certain packages if they are not already installed
 
 > pip install -r requirements.txt
 
 > python3 init.py
 
 
-Para deixar mais interessante, voce pode colocar o arquivo init.py
-para se iniciar juntamente com seu bash no seu arquivo .zshrc/.bashrc
-e criar um terminal com autenticação estilo Fallout.
+To make it more interesting, you can add the init.py file to start along with your shell, by editing .zshrc/.bashrc file
+And after this.. your terminal will always start with Fallout-style authentication.
 
 > git clone https://github.com/ARCANGEL0/fallTerminal 
 
@@ -69,31 +63,30 @@ e criar um terminal com autenticação estilo Fallout.
 > echo "python3 $(pwd)/init.py" >> $HOME/.bashrc
 
 
-## Menu de opções
+## Menu 
 
-O menu de opções consta com alguns serviços do meu terminal próprio ( como apache, mysql, snapd )
-que podem ser inicializados pelo próprio script, como uma shell interativa
-Sinta-se a vontade para adicionar seus próprios selects e modificar ao seu gosto
+The options menu contains some services from my own terminal (such as apache, mysql, snapd)
+that can be initialized by the script itself, like an interactive shell
+Feel free to add your own 
 
 
-## Geraçao da senha
+## Password 
 
-A senha do terminal e gerada a partir de um arquivo de texto (pass) , que printa todas as palavras na tela e salva uma delas
-aleatoriamente como senha do sistema
-Para visualizar qual a senha escolhida, basta digitar
+The terminal password is generated from a text file (pass), which prints all the words on the screen and saves one of them randomly as system password
+To view the chosen password
 > /ADMIN.L
 
-no terminal do login para visualizar a senha atual.
+on the login terminal to view the current password.
 
 
 
 ## Terminal
 
-Para aderir mais ao estilo retro de Terminal,
-recomendo o cool-retro-term de Swordfish90
+To adhere more to Terminal's retro style,
+I recommend Swordfish90's cool-retro-term
 
-Para ficar mais igual ao estilo do terminal do fallout,
-exportei meu JSON de estilização do CRT no repo 
-como falout.json
+To match the fallout terminal style, I tweaked cool-retro-term.
+I exported my CRT styling JSON in the repo
+as falout.json
 
 (https://github.com/Swordfish90/cool-retro-term)
