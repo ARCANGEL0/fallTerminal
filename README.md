@@ -1,4 +1,10 @@
-# Fall Terminal
+<div align="center">
+<center><p><img src="pngimg.com - fallout_PNG72.png" width='45%' height='45%'></img>
+<h1>Fallout Shell</h1>
+</center>
+</div>
+
+# Fallout Terminal Shell
 ====================================
 
 Script em python inspirado na franquia de Jogos Fallout
