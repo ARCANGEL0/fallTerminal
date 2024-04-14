@@ -6,9 +6,6 @@
 
 <p align="center">
   
-  <a href="https://www.gnu.org/licenses/agpl-3.0">
-    <img src="https://img.shields.io/badge/License-AGPL_v3-blue.svg?style=for-the-badge" alt="License: AGPL v3">
-</a>
 <a href="https://github.com/ARCANGEL0/fallTerminal">
     <img src="https://img.shields.io/github/stars/ARCANGEL0/fallTerminal?label=Stars&color=yellow&style=for-the-badge" alt="Stars">
 </a>
@@ -56,8 +53,8 @@ E necessario instalar certos pacotes, caso nao estejam instalados
 
 
 Para deixar mais interessante, voce pode colocar o arquivo init.py
-para se iniciar juntamente com seu bash no seu arquivo .zshrc/.bashrc
-e criar um terminal com autenticação estilo Fallout.
+para se iniciar juntamente com seu bash, editando o arquivo .zshrc/.bashrc.
+Assim, seu terminal irá inicializar com o script de autenticação 
 
 > git clone https://github.com/ARCANGEL0/fallTerminal 
 
